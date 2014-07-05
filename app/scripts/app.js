@@ -4,7 +4,9 @@ angular.module('sbGridApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
-  'ngRoute'
+  'ngRoute',
+  'sbGridApp.controllers',
+  'sbGridApp.services',
 ])
   .config(function ($routeProvider) {
     $routeProvider

@@ -1,37 +1,41 @@
 <div class="container">
     <header> <h1>Welcome to the Football Grid Generator</h1></header>
-<div class="error">{{partTable.error}}</div>
+<div class="error">{{grid.error}}</div>
 <div class="grid">
     <table>
         <tbody>
             <tr>
                 <th></th>
-                <th ng-repeat="col in partTable.headers.top" ng-bind="col">0</th>
+                <th ng-repeat="col in range(10)" ng-bind="col">0</th>
             </tr>
             <tr ng-repeat="row in range(10)">
-                <th ng-bind="partTable.headers.side[row]">0</th>
-                <td ng-repeat="participant in partTable.participants[row] track by $index">{{participant.name}}</td>
+                <th ng-bind="row">0</th>
+                <td ng-repeat="user in grid.grid[row] track by $index">{{user.username}}</td>
             </tr>
         </tbody>
     </table>
 </div>
 
+<div class="available">
+    <h4><span ng-bind="100 - grid.squaresTaken()">0</span> Squares Left</h4>
+</div>
+
 <div class="participants">
     <h4>Participants</h4>
     <ul>
-        <li ng-repeat="part in participants">
+        <li ng-repeat="user in grid.users">
             <div class="name">
-                <em>{{part.name}}:</em>
-                <strong>{{part.squares}}</strong>
+                <em>{{user.username}}:</em>
+                <strong>{{user.squares}}</strong>
             </div>
             <div class="remove">
-                <button ng-click="removeUser(part.id)">X</button>
+                <button ng-click="removeUser(user.id)">X</button>
             </div>
         </li>
         <li ng-show="adding"> <form ng-submit="addUser()" role="form">
             <div class="form-group">
                 <input type="text" placeholder="Name" required ng-model="newUser.name">
-                <input type="text" placeholder="Squares" required ng-model="newUser.squares">
+                <input type="number" placeholder="Squares" required ng-model="newUser.squares">
                 <button>Save</button>
             </div>
         </form></li>
